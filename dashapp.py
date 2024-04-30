@@ -176,7 +176,7 @@ def display_time_series(ticker):
     fig = px.line(df, x="date", y="value", color = "type", labels=dict(date="Time", value="Temperature (°C)", type="Sensor"))
     fig.update_layout(title_text="Temperature in °C",
                   title_font_size=30,
-                  yaxis_range=[17,21])
+                  yaxis_range=[17,25])
     fig.update_yaxes(minor_tickmode="auto")
     fig.update_yaxes(nticks=5)
     #fig.update_yaxes(minor_tickvals=["18","19","20"])
