@@ -197,6 +197,7 @@ def display_time_series(ticker):
     #fig.update_layout(showlegend=False)
     #fig.update_layout(legend_title_text="")
     #fig.update_layout(legend_title_side="top")
+    
     fig['layout']['uirevision'] = 'some-constant'
     
     return fig

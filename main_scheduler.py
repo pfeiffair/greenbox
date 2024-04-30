@@ -204,7 +204,7 @@ def run_threaded(job_func):
     job_thread.start()
 
 schedule.every(10).seconds.do(run_threaded, printSensor)
-schedule.every(10).seconds.do(run_threaded, logdatalong)
+schedule.every(20).seconds.do(run_threaded, logdatalong)
 #schedule.every(60).seconds.do(run_threaded, humidon)
 #schedule.every(60).seconds.do(run_threaded, windon)
 
