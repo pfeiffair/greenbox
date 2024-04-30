@@ -173,10 +173,21 @@ def display_time_series(ticker):
     # selecting rows based on condition
     df = df[((df['type'] == 'Temp1') | (df['type'] == 'Temp2'))]
     
-    fig = px.line(df, x="date", y="value", color = "type", labels=dict(date="Time", value="Temperature (°C)", type="Sensor"))
+    fig = px.line(df, x="date", y="value", color = "type", 
+                    labels=dict(date="Time", value="Temperature (°C)", type="Sensor"))
+                    #range_x=['2024-04-30','2024-05-01'],)
+    fig.update_xaxes(rangeslider_visible=True, 
+                     rangeselector=dict(
+                        buttons=list([
+                        dict(count=10, label="10 mim", step="minute", stepmode="backward"),
+                        dict(count=2, label="2 h", step="hour", stepmode="backward"),
+                        dict(count=12, label="12 h", step="hour", stepmode="todate"),
+                        dict(count=2, label="2 days", step="day", stepmode="backward"),
+                        dict(step="all") ]))
+                    )
     fig.update_layout(title_text="Temperature in °C",
-                  title_font_size=30,
-                  yaxis_range=[17,25])
+                  title_font_size=30)#,
+                  #yaxis_range=[17,25])
     fig.update_yaxes(minor_tickmode="auto")
     fig.update_yaxes(nticks=5)
     #fig.update_yaxes(minor_tickvals=["18","19","20"])
@@ -186,6 +197,7 @@ def display_time_series(ticker):
     #fig.update_layout(showlegend=False)
     #fig.update_layout(legend_title_text="")
     #fig.update_layout(legend_title_side="top")
+    fig['layout']['uirevision'] = 'some-constant'
     
     return fig
 
@@ -205,6 +217,16 @@ def display_time_series(ticker):
                   yaxis_range=[30,100])
     fig.update_yaxes(minor_tickmode="auto")
     fig.update_yaxes(nticks=8)
+    fig.update_xaxes(rangeslider_visible=True, 
+                     rangeselector=dict(
+                        buttons=list([
+                        dict(count=10, label="10 mim", step="minute", stepmode="backward"),
+                        dict(count=2, label="2 h", step="hour", stepmode="backward"),
+                        dict(count=12, label="12 h", step="hour", stepmode="todate"),
+                        dict(count=2, label="2 days", step="day", stepmode="backward"),
+                        dict(step="all") ]))
+                    )
+    fig['layout']['uirevision'] = 'some-constant'
     return fig
 
 app.run_server(debug=True)
