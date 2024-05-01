@@ -17,7 +17,13 @@ app.layout = html.Div([
         ),
         dcc.Graph(id='time-series-chart-humid', style={'width': '100vh', 'height': '40vh','padding': 5}),
         dcc.Interval(
-            id='interval-component-h',
+            id='interval-component-humid',
+            interval=10*1000, # in milliseconds
+            n_intervals=0
+        ),
+        dcc.Graph(id='time-series-chart-vpd', style={'width': '100vh', 'height': '40vh','padding': 5}),
+        dcc.Interval(
+            id='interval-component-vpd',
             interval=10*1000, # in milliseconds
             n_intervals=0
         ),
@@ -201,10 +207,9 @@ def display_time_series(ticker):
     fig['layout']['uirevision'] = 'some-constant'
     
     return fig
-
 @app.callback(
     Output("time-series-chart-humid", "figure"),
-    Input('interval-component-h', 'n_intervals'))
+    Input('interval-component-humid', 'n_intervals'))
 
 def display_time_series(ticker):
     df = loaddata()
@@ -213,9 +218,7 @@ def display_time_series(ticker):
     
     fig = px.line(df, x="date", y="value", color = "type",labels=dict(date="Time", value="Humidity (%)", type="Sensor"))
 
-    fig.update_layout(title_text="Humidity in %",
-                  title_font_size=30,
-                  yaxis_range=[30,100])
+    fig.update_layout(title_text="Humidity in %", title_font_size=30, yaxis_range=[30,100])
     fig.update_yaxes(minor_tickmode="auto")
     fig.update_yaxes(nticks=8)
     fig.update_xaxes(rangeslider_visible=True, 
@@ -229,5 +232,33 @@ def display_time_series(ticker):
                     )
     fig['layout']['uirevision'] = 'some-constant'
     return fig
+
+@app.callback(
+    Output("time-series-chart-vpd", "figure"),
+    Input('interval-component-vpd', 'n_intervals'))
+
+def display_time_series(ticker):
+    df = loaddata()
+    # selecting rows based on condition
+    df = df[((df['type'] == 'vpd1') | (df['type'] == 'vpd2'))]
+    
+
+    fig.update_layout(title_text="Vapor Pressure Deficit",
+                  title_font_size=30)#,
+                  #yaxis_range=[30,100])
+    fig.update_yaxes(minor_tickmode="auto")
+    #fig.update_yaxes(nticks=8)
+    fig.update_xaxes(rangeslider_visible=True, 
+                     rangeselector=dict(
+                        buttons=list([
+                        dict(count=10, label="10 mim", step="minute", stepmode="backward"),
+                        dict(count=2, label="2 h", step="hour", stepmode="backward"),
+                        dict(count=12, label="12 h", step="hour", stepmode="todate"),
+                        dict(count=2, label="2 days", step="day", stepmode="backward"),
+                        dict(step="all") ]))
+                    )
+    fig['layout']['uirevision'] = 'some-constant'
+    return fig
+
 
 app.run_server(debug=True)

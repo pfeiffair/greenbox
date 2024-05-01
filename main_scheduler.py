@@ -46,7 +46,8 @@ def getSensors():
 	humidity2 = data2.humidity
 	pressure2 = data2.pressure
 	timestamp2 = data2.timestamp
-	
+	vpd1 = calcvpd(T= temperature_celsius, humidity=humidity)
+	vpd2 = calcvpd(T= temperature_celsius2, humidity=humidity2)
 	# Adjust timezone
 	# Define the timezone you want to use (list of timezones: https://gist.github.com/mjrulesamrat/0c1f7de951d3c508fb3a20b4b0b33a98)
 	desired_timezone = pytz.timezone('Europe/Berlin')  # Replace with your desired timezone
@@ -62,24 +63,25 @@ def getSensors():
 	#print(timestamp_tz.strftime('%H:%M:%S %d/%m/%Y'))
 	#print("Temp1={0:0.1f}ºC, Temp1={1:0.1f}ºF, Humidity1={2:0.1f}%, Pressure1={3:0.2f}hPa".format(temperature_celsius, temperature_fahrenheit, humidity, pressure))
 	#print("Temp2={0:0.1f}ºC, Temp2={1:0.1f}ºF, Humidity2={2:0.1f}%, Pressure2={3:0.2f}hPa".format(temperature_celsius2, temperature_fahrenheit2, humidity2, pressure2))
-	valueList = [timestamp_out, temperature_celsius, temperature_celsius2, humidity, humidity2, pressure, pressure2]
+	valueList = [timestamp_out, temperature_celsius, temperature_celsius2, humidity, humidity2, pressure, pressure2, vpd1, vpd2]
 	return valueList
 
-def logdata():
-	import os
-	import pytz
-	# Check if the file exists before opening it in 'a' mode (append mode)
-	file_exists = os.path.isfile('sensor_readings_bme280.csv')
-	file = open('sensor_readings_bme280.csv', 'a')
+# log data in wide format
+# def logdata(): 
+# 	import os
+# 	import pytz
+# 	# Check if the file exists before opening it in 'a' mode (append mode)
+# 	file_exists = os.path.isfile('sensor_readings_bme280.csv')
+# 	file = open('sensor_readings_bme280.csv', 'a')
 	
-	# Write the header to the file if the file does not exist
-	if not file_exists:
-		file.write('Date,Temp1,Temp2,humidity1,humidity2,pressure1,pressure2\n')
-	# Read data
-	data = getSensors()
-	# Save data in *.csv file
-	file.write(data[0] + "," + str(round(data[1],2))+ "," + str(round(data[2],2))+ "," + str(round(data[3],2))+ "," + str(round(data[4],2))+ "," + str(round(data[5],2))+ "," + str(round(data[6],2))+"\n")
-	file.close()
+# 	# Write the header to the file if the file does not exist
+# 	if not file_exists:
+# 		file.write('Date,Temp1,Temp2,humidity1,humidity2,pressure1,pressure2\n')
+# 	# Read data
+# 	data = getSensors()
+# 	# Save data in *.csv file
+# 	file.write(data[0] + "," + str(round(data[1],2))+ "," + str(round(data[2],2))+ "," + str(round(data[3],2))+ "," + str(round(data[4],2))+ "," + str(round(data[5],2))+ "," + str(round(data[6],2))+"\n")
+# 	file.close()
 
 def logdatalong():
 	import os
@@ -98,7 +100,7 @@ def logdatalong():
 	#file.write(data[0] + "," + str(round(data[1],2))+ ", Temp1\n" + data[0] + "," + str(round(data[2],2))+ ", Temp2\n" + data[0] + "," + str(round(data[3],2))+ ", Humid1\n" +  data[0] + "," + str(round(data[4],2))+ ", Humid2\n" + data[0] + "," + str(round(data[5],2))+ ", Press1\n" + data[0] + "," + str(round(data[6],2))+ ", Press2\n") 
 	#file.close()
 	with open('sensor_readings_bme280_long.csv', 'a') as file:
-	    file.write(data[0] + "," + str(round(data[1],2))+ ",Temp1\n" + data[0] + "," + str(round(data[2],2))+ ",Temp2\n" + data[0] + "," + str(round(data[3],2))+ ",Humid1\n" +  data[0] + "," + str(round(data[4],2))+ ",Humid2\n" + data[0] + "," + str(round(data[5],2))+ ",Press1\n" + data[0] + "," + str(round(data[6],2))+ ",Press2\n")
+	    file.write(data[0] + "," + str(round(data[1],2))+ ",Temp1\n" + data[0] + "," + str(round(data[2],2))+ ",Temp2\n" + data[0] + "," + str(round(data[3],2))+ ",Humid1\n" +  data[0] + "," + str(round(data[4],2))+ ",Humid2\n" + data[0] + "," + str(round(data[5],2))+ ",Press1\n" + data[0] + "," + str(round(data[6],2))+ ",Press2\n" + data[0]+ "," + str(round(data[7],2))+ ",vpd1\n"+ data[0] + "," + str(round(data[8],2))+ ",vpd2\n")
 			
 # Turn on / off Relais 1
 def R1on():
@@ -166,8 +168,8 @@ def printSensor():
 	#print("Sensor 2: Temp: ", values[2],"Humid: ",values[4], "Pressure: ",values[6] )
 	#print(values[0])
 	
-	print("Sensor 1: Temperatur = {0:0.1f}ºC ".format(values[1]) + "Humidity = {0:0.1f}% ".format(values[3]) + "Pressure = {0:0.2f}hPa".format(values[5]))
-	print("Sensor 2: Temperatur = {0:0.1f}ºC ".format(values[2]) + "Humidity = {0:0.1f}% ".format(values[4]) + "Pressure = {0:0.2f}hPa".format(values[6]))
+	print("Sensor 1: Temperatur = {0:0.1f}ºC ".format(values[1]) + "Humidity = {0:0.1f}% ".format(values[3]) + "VPD = {0:0.2f} ".format(values[7]) + "Pressure = {0:0.2f}hPa".format(values[5]))
+	print("Sensor 2: Temperatur = {0:0.1f}ºC ".format(values[2]) + "Humidity = {0:0.1f}% ".format(values[4]) + "VPD = {0:0.2f} ".format(values[8]) + "Pressure = {0:0.2f}hPa".format(values[6]))
 	
 # Check if Humidity is to low / high
 def checker():
@@ -199,12 +201,32 @@ def windon(duration = 30):
 	time.sleep(duration)
 	R1off()
 
+# calculate vpd 
+import math
+
+
+def calcvpd(T =20, humidity=50):
+	# https://www.omnicalculator.com/biology/vapor-pressure-deficit
+	# https://en.wikipedia.org/wiki/Tetens_equation 
+	rhumidity = humidity /100
+	
+	#calculate svp
+	svp = 0.61078 * math.exp(17.27 * T / (T + 237.3))
+	
+	vpair = 0.61078 * math.exp(17.27 * T / (T + 237.3)) * rhumidity
+	
+	#vapor pressure deficit = saturation vapor pressure of leaf - saturation vapor pressure of air * relative humidity
+	vpd = svp-vpair* rhumidity
+	return vpd
+
+
+
 def run_threaded(job_func):
     job_thread = threading.Thread(target=job_func)
     job_thread.start()
 
 schedule.every(10).seconds.do(run_threaded, printSensor)
-schedule.every(20).seconds.do(run_threaded, logdatalong)
+schedule.every(10).seconds.do(run_threaded, logdatalong)
 #schedule.every(60).seconds.do(run_threaded, humidon)
 #schedule.every(60).seconds.do(run_threaded, windon)
 
