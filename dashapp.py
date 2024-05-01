@@ -241,8 +241,7 @@ def display_time_series(ticker):
     df = loaddata()
     # selecting rows based on condition
     df = df[((df['type'] == 'vpd1') | (df['type'] == 'vpd2'))]
-    
-
+    fig = px.line(df, x="date", y="value", color = "type",labels=dict(date="Time", value="VPD", type="Sensor"))
     fig.update_layout(title_text="Vapor Pressure Deficit",
                   title_font_size=30)#,
                   #yaxis_range=[30,100])
