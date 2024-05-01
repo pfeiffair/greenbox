@@ -224,10 +224,10 @@ def display_time_series(ticker):
     fig.update_xaxes(rangeslider_visible=True, 
                      rangeselector=dict(
                         buttons=list([
-                        dict(count=10, label="10 mim", step="minute", stepmode="backward"),
-                        dict(count=2, label="2 h", step="hour", stepmode="backward"),
+                        dict(count=10, label="10 mim", step="minute", stepmode="todate"),
+                        dict(count=2, label="2 h", step="hour", stepmode="todate"),
                         dict(count=12, label="12 h", step="hour", stepmode="todate"),
-                        dict(count=2, label="2 days", step="day", stepmode="backward"),
+                        dict(count=2, label="2 days", step="day", stepmode="todate"),
                         dict(step="all") ]))
                     )
     fig['layout']['uirevision'] = 'some-constant'
