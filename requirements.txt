@@ -5,3 +5,15 @@ gunicorn>=19.9.0
 numpy>=1.16.2
 pandas>=0.24.2
 dash-mantine-components==0.12.1
+
+#for dash app
+dash
+pandas
+
+# for main_schedule
+opencv-python==4.3.0.38 (ältere Version, mit der es geht?)
+opencv-python
+schedule
+smbus2
+RPi.bme280
+RPi.GPIO

@@ -41,7 +41,9 @@ app.layout = html.Div([
         html.Div(id='container-button-humid',
             children='Enter a value in seconds and press Start'),
         html.Div(dcc.Input(id='input-on-submit-humid', type='text')),
-        html.Button('Start', id='submit-val-humid', n_clicks=0)
+        html.Button('Start', id='submit-val-humid', n_clicks=0),
+        html.Img(src=app.get_asset_url('cam.png'), id='campic')
+        #html.Img(src=Dash.get_asset_url('opencv_frame_1.png')) 
     ], style={'padding': 10,'width': '50vh', 'flex': 1})
 ], style={'display': 'flex', 'flexDirection': 'row'})
     # html.P("Sensor auswählen:"),
@@ -182,7 +184,7 @@ def display_time_series(ticker):
     fig = px.line(df, x="date", y="value", color = "type", 
                     labels=dict(date="Time", value="Temperature (°C)", type="Sensor"))
                     #range_x=['2024-04-30','2024-05-01'],)
-    fig.update_xaxes(rangeslider_visible=True, 
+    fig.update_xaxes(#rangeslider_visible=True, 
                      rangeselector=dict(
                         buttons=list([
                         dict(count=10, label="10 mim", step="minute", stepmode="backward"),
@@ -194,17 +196,17 @@ def display_time_series(ticker):
     fig.update_layout(title_text="Temperature in °C",
                   title_font_size=30)#,
                   #yaxis_range=[17,25])
-    fig.update_yaxes(minor_tickmode="auto")
-    fig.update_yaxes(nticks=5)
+    #fig.update_yaxes(minor_tickmode="auto")
+    #fig.update_yaxes(nticks=5)
     #fig.update_yaxes(minor_tickvals=["18","19","20"])
-    #fig.update_layout(uirevision="fix")
+
     #fig.update_layout(newshape_showlegend=False)
     #fig.update_layout(newshape_label_text="<VALUE>")
     #fig.update_layout(showlegend=False)
     #fig.update_layout(legend_title_text="")
     #fig.update_layout(legend_title_side="top")
-    
-    fig['layout']['uirevision'] = 'some-constant'
+    fig.update_layout(uirevision="fix")
+    #fig['layout']['uirevision'] = 'some-constant'
     
     return fig
 @app.callback(
