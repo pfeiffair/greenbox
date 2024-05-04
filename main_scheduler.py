@@ -8,6 +8,8 @@ import smbus2
 import bme280
 import os
 import pytz
+# for webcam
+import cv2
 
 # BME280 sensor address (default address)
 address = 0x76
@@ -65,6 +67,13 @@ def getSensors():
 	#print("Temp2={0:0.1f}ºC, Temp2={1:0.1f}ºF, Humidity2={2:0.1f}%, Pressure2={3:0.2f}hPa".format(temperature_celsius2, temperature_fahrenheit2, humidity2, pressure2))
 	valueList = [timestamp_out, temperature_celsius, temperature_celsius2, humidity, humidity2, pressure, pressure2, vpd1, vpd2]
 	return valueList
+def cam():
+	cam = cv2.VideoCapture(0)
+	frame = cam.read()[1]
+	timestr = time.strftime("%Y%m%d-%H%M%S")
+	img_name = "/home/pfeiffer/greenbox/assets/"+timestr+"cam.png"
+	cv2.imwrite(img_name, frame)
+	print("captured: {}".format(img_name))
 
 # log data in wide format
 # def logdata(): 
@@ -227,6 +236,7 @@ def run_threaded(job_func):
 
 schedule.every(10).seconds.do(run_threaded, printSensor)
 schedule.every(10).seconds.do(run_threaded, logdatalong)
+schedule.every(30).seconds.do(run_threaded, cam)
 #schedule.every(60).seconds.do(run_threaded, humidon)
 #schedule.every(60).seconds.do(run_threaded, windon)
 
