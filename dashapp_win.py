@@ -51,29 +51,39 @@ def render_content(tab):
             # Visualization Section
             ###############################################################
 
-            # Placeholder Text in Row 1
+            # Current Sensor Values in Row 1
+            html.Div(children=[
+                # Temperature Values in A1
+                html.Div(id='current-temp-values', style={'width': '33%', 'display': 'inline-block', 'background-color': 'red', 'color': 'white', 'font-size': '30px', 'text-align': 'center'}),
+                # Humidity Values in B1
+                html.Div(id='current-humid-values', style={'width': '33%', 'display': 'inline-block', 'background-color': 'blue', 'color': 'white', 'font-size': '30px', 'text-align': 'center'}),
+                # VPD Values in C1
+                html.Div(id='current-vpd-values', style={'width': '33%', 'display': 'inline-block', 'background-color': 'green', 'color': 'white', 'font-size': '30px', 'text-align': 'center'}),
+            ], style={'width': '100%', 'display': 'flex', 'justify-content': 'center'}),
+            
+            # Second row for additional sensor values
+            html.Div(children=[
+                html.Div(id='current-temp-values2', style={'width': '33%', 'display': 'inline-block', 'background-color': 'red', 'color': 'white', 'font-size': '30px', 'text-align': 'center'}),
+                html.Div(id='current-humid-values2', style={'width': '33%', 'display': 'inline-block', 'background-color': 'blue', 'color': 'white', 'font-size': '30px', 'text-align': 'center'}),
+                html.Div(id='current-vpd-values2', style={'width': '33%', 'display': 'inline-block', 'background-color': 'green', 'color': 'white', 'font-size': '30px', 'text-align': 'center'}),
+            ], style={'width': '100%', 'display': 'flex', 'justify-content': 'center'}),
+            
+            # Placeholder Text in Row 3
             html.Div(children=[
                 html.Div(children='Test', style={'width': '33%', 'display': 'inline-block'}),
                 html.Div(children='Test', style={'width': '33%', 'display': 'inline-block'}),
                 html.Div(children='Test', style={'width': '33%', 'display': 'inline-block'}),
             ], style={'width': '100%', 'display': 'flex', 'justify-content': 'center'}),
             
-            # Placeholder Text in Row 2
-            html.Div(children=[
-                html.Div(children='Test', style={'width': '33%', 'display': 'inline-block'}),
-                html.Div(children='Test', style={'width': '33%', 'display': 'inline-block'}),
-                html.Div(children='Test', style={'width': '33%', 'display': 'inline-block'}),
-            ], style={'width': '100%', 'display': 'flex', 'justify-content': 'center'}),
-            
-            # Temperature Chart in Row 3, Column A
+            # Temperature Chart in Row 4, Column A
             dcc.Graph(id='time-series-chart-temp', style={'width': '33%', 'display': 'inline-block'}),
             dcc.Interval(id='interval-component-t', interval=10*1000, n_intervals=0),
             
-            # Humidity Chart in Row 3, Column B
+            # Humidity Chart in Row 4, Column B
             dcc.Graph(id='time-series-chart-humid', style={'width': '33%', 'display': 'inline-block'}),
             dcc.Interval(id='interval-component-humid', interval=10*1000, n_intervals=0),
             
-            # Vapor Pressure Deficit Chart in Row 3, Column C
+            # Vapor Pressure Deficit Chart in Row 4, Column C
             dcc.Graph(id='time-series-chart-vpd', style={'width': '33%', 'display': 'inline-block'}),
             dcc.Interval(id='interval-component-vpd', interval=10*1000, n_intervals=0),
         ])
@@ -166,6 +176,26 @@ def display_time_series_vpd(ticker):
                      ))
     fig['layout']['uirevision'] = 'some-constant'
     return fig
+
+# Callback to update the current sensor values
+@app.callback(
+    Output("current-temp-values", "children"),
+    Output("current-humid-values", "children"),
+    Output("current-vpd-values", "children"),
+    Output("current-temp-values2", "children"),
+    Output("current-humid-values2", "children"),
+    Output("current-vpd-values2", "children"),
+    Input('interval-component-t', 'n_intervals'))
+def update_current_sensor_values(ticker):
+    df = loaddata()
+    current_temp1 = df[df['type'] == 'Temp1']['value'].iloc[-1]
+    current_temp2 = df[df['type'] == 'Temp2']['value'].iloc[-1]
+    current_humid1 = df[df['type'] == 'Humid1']['value'].iloc[-1]
+    current_humid2 = df[df['type'] == 'Humid2']['value'].iloc[-1]
+    current_vpd1 = df[df['type'] == 'vpd1']['value'].iloc[-1]
+    current_vpd2 = df[df['type'] == 'vpd2']['value'].iloc[-1]
+    
+    return f'Temp1: {current_temp1}°C', f'Humid1: {current_humid1}%', f'VPD1: {current_vpd1} kPa', f'Temp2: {current_temp2}°C', f'Humid2: {current_humid2}%', f'VPD2: {current_vpd2} kPa'
 
 # Run the Dash app
 app.config.suppress_callback_exceptions = True
