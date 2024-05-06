@@ -55,17 +55,17 @@ def render_content(tab):
                 html.H4('Data Visualization: 2x BME280 Sensors'),
 
                 # Temperature Chart
-                dcc.Graph(id='time-series-chart-temp', style={'width': '100vh', 'height': '40vh','padding': 5}),
+                dcc.Graph(id='time-series-chart-temp', style={'width': '33%', 'display': 'inline-block'}),
                 dcc.Interval(id='interval-component-t', interval=10*1000, n_intervals=0),
 
                 # Humidity Chart
-                dcc.Graph(id='time-series-chart-humid', style={'width': '100vh', 'height': '40vh','padding': 5}),
+                dcc.Graph(id='time-series-chart-humid', style={'width': '33%', 'display': 'inline-block'}),
                 dcc.Interval(id='interval-component-humid', interval=10*1000, n_intervals=0),
 
                 # Vapor Pressure Deficit Chart
-                dcc.Graph(id='time-series-chart-vpd', style={'width': '100vh', 'height': '40vh','padding': 5}),
+                dcc.Graph(id='time-series-chart-vpd', style={'width': '33%', 'display': 'inline-block'}),
                 dcc.Interval(id='interval-component-vpd', interval=10*1000, n_intervals=0),
-            ], style={'width': '100vh', 'height': '100vh','padding': 5, 'flex': 1})
+            ], style={'width': '100%', 'height': '100vh','padding': 5})
         ])
     elif tab == 'tab-historic':
         return html.Div(children=[
