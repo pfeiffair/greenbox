@@ -51,21 +51,31 @@ def render_content(tab):
             # Visualization Section
             ###############################################################
 
+            # Placeholder Text in Row 1
             html.Div(children=[
-                html.H4('Data Visualization: 2x BME280 Sensors'),
-
-                # Temperature Chart
-                dcc.Graph(id='time-series-chart-temp', style={'width': '33%', 'display': 'inline-block'}),
-                dcc.Interval(id='interval-component-t', interval=10*1000, n_intervals=0),
-
-                # Humidity Chart
-                dcc.Graph(id='time-series-chart-humid', style={'width': '33%', 'display': 'inline-block'}),
-                dcc.Interval(id='interval-component-humid', interval=10*1000, n_intervals=0),
-
-                # Vapor Pressure Deficit Chart
-                dcc.Graph(id='time-series-chart-vpd', style={'width': '33%', 'display': 'inline-block'}),
-                dcc.Interval(id='interval-component-vpd', interval=10*1000, n_intervals=0),
-            ], style={'width': '100%', 'height': '100vh','padding': 5})
+                html.Div(children='Test', style={'width': '33%', 'display': 'inline-block'}),
+                html.Div(children='Test', style={'width': '33%', 'display': 'inline-block'}),
+                html.Div(children='Test', style={'width': '33%', 'display': 'inline-block'}),
+            ], style={'width': '100%', 'display': 'flex', 'justify-content': 'center'}),
+            
+            # Placeholder Text in Row 2
+            html.Div(children=[
+                html.Div(children='Test', style={'width': '33%', 'display': 'inline-block'}),
+                html.Div(children='Test', style={'width': '33%', 'display': 'inline-block'}),
+                html.Div(children='Test', style={'width': '33%', 'display': 'inline-block'}),
+            ], style={'width': '100%', 'display': 'flex', 'justify-content': 'center'}),
+            
+            # Temperature Chart in Row 3, Column A
+            dcc.Graph(id='time-series-chart-temp', style={'width': '33%', 'display': 'inline-block'}),
+            dcc.Interval(id='interval-component-t', interval=10*1000, n_intervals=0),
+            
+            # Humidity Chart in Row 3, Column B
+            dcc.Graph(id='time-series-chart-humid', style={'width': '33%', 'display': 'inline-block'}),
+            dcc.Interval(id='interval-component-humid', interval=10*1000, n_intervals=0),
+            
+            # Vapor Pressure Deficit Chart in Row 3, Column C
+            dcc.Graph(id='time-series-chart-vpd', style={'width': '33%', 'display': 'inline-block'}),
+            dcc.Interval(id='interval-component-vpd', interval=10*1000, n_intervals=0),
         ])
     elif tab == 'tab-historic':
         return html.Div(children=[
@@ -93,7 +103,8 @@ def display_time_series_temp(ticker):
     
     fig = px.line(df, x="date", y="value", color="type", 
                   labels=dict(date="Time", value="Temperature (°C)", type="Sensor"))
-    fig.update_xaxes(rangeselector=dict(
+    fig.update_xaxes(rangeslider_visible=True,
+                     rangeselector=dict(
         buttons=list([
             dict(count=10, label="10 mim", step="minute", stepmode="backward"),
             dict(count=2, label="2 h", step="hour", stepmode="backward"),
