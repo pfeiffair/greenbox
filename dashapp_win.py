@@ -34,7 +34,7 @@ app.layout = html.Div([
 # Function to load data from CSV
 def loaddata():
     df = pd.read_csv('sensor_readings_bme280_long.csv')
-    df["date"] = pd.to_datetime(df["date"],dayfirst=True) 
+    df["date"] = pd.to_datetime(df["date"], dayfirst=True) 
     return df
 
 ################################################################
@@ -54,18 +54,18 @@ def render_content(tab):
             # Current Sensor Values in Row 1
             html.Div(children=[
                 # Temperature Values in A1
-                html.Div(id='current-temp-values', style={'width': '33%', 'display': 'inline-block', 'background-color': 'red', 'color': 'white', 'font-size': '30px', 'text-align': 'center'}),
+                html.Div(id='current-temp-values', style={'width': '33%', 'display': 'inline-block', 'background-color': 'red', 'color': 'white', 'font-size': '20px', 'text-align': 'center'}),
                 # Humidity Values in B1
-                html.Div(id='current-humid-values', style={'width': '33%', 'display': 'inline-block', 'background-color': 'blue', 'color': 'white', 'font-size': '30px', 'text-align': 'center'}),
+                html.Div(id='current-humid-values', style={'width': '33%', 'display': 'inline-block', 'background-color': 'blue', 'color': 'white', 'font-size': '20px', 'text-align': 'center'}),
                 # VPD Values in C1
-                html.Div(id='current-vpd-values', style={'width': '33%', 'display': 'inline-block', 'background-color': 'green', 'color': 'white', 'font-size': '30px', 'text-align': 'center'}),
+                html.Div(id='current-vpd-values', style={'width': '33%', 'display': 'inline-block', 'background-color': 'green', 'color': 'white', 'font-size': '20px', 'text-align': 'center'}),
             ], style={'width': '100%', 'display': 'flex', 'justify-content': 'center'}),
             
             # Second row for additional sensor values
             html.Div(children=[
-                html.Div(id='current-temp-values2', style={'width': '33%', 'display': 'inline-block', 'background-color': 'red', 'color': 'white', 'font-size': '30px', 'text-align': 'center'}),
-                html.Div(id='current-humid-values2', style={'width': '33%', 'display': 'inline-block', 'background-color': 'blue', 'color': 'white', 'font-size': '30px', 'text-align': 'center'}),
-                html.Div(id='current-vpd-values2', style={'width': '33%', 'display': 'inline-block', 'background-color': 'green', 'color': 'white', 'font-size': '30px', 'text-align': 'center'}),
+                html.Div(id='current-temp-values2', style={'width': '33%', 'display': 'inline-block', 'background-color': 'red', 'color': 'white', 'font-size': '20px', 'text-align': 'center'}),
+                html.Div(id='current-humid-values2', style={'width': '33%', 'display': 'inline-block', 'background-color': 'blue', 'color': 'white', 'font-size': '20px', 'text-align': 'center'}),
+                html.Div(id='current-vpd-values2', style={'width': '33%', 'display': 'inline-block', 'background-color': 'green', 'color': 'white', 'font-size': '20px', 'text-align': 'center'}),
             ], style={'width': '100%', 'display': 'flex', 'justify-content': 'center'}),
             
             # Placeholder Text in Row 3
@@ -123,7 +123,7 @@ def display_time_series_temp(ticker):
             dict(step="all") 
         ])
     ))
-    fig.update_layout(title_text="Temperature in °C", title_font_size=30)
+    fig.update_layout(title_text="Temperature in °C", title_font_size=20, title_x=0.5)
     fig.update_layout(uirevision="fix")
     return fig
 
@@ -137,7 +137,7 @@ def display_time_series_humid(ticker):
     
     fig = px.line(df, x="date", y="value", color="type",
                   labels=dict(date="Time", value="Humidity (%)", type="Sensor"))
-    fig.update_layout(title_text="Humidity in %", title_font_size=30, yaxis_range=[30,100])
+    fig.update_layout(title_text="Humidity in %", title_font_size=20, title_x=0.5, yaxis_range=[30,100])
     fig.update_yaxes(nticks=8)
     fig.update_xaxes(rangeslider_visible=True, 
                      rangeselector=dict(
@@ -162,7 +162,7 @@ def display_time_series_vpd(ticker):
     
     fig = px.line(df, x="date", y="value", color="type",
                   labels=dict(date="Time", value="VPD", type="Sensor"))
-    fig.update_layout(title_text="Vapor Pressure Deficit", title_font_size=30)
+    fig.update_layout(title_text="Vapor Pressure Deficit", title_font_size=20, title_x=0.5)
     fig.update_yaxes(nticks=8)
     fig.update_xaxes(rangeslider_visible=True, 
                      rangeselector=dict(
