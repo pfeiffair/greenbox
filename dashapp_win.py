@@ -123,7 +123,7 @@ def display_time_series_temp(ticker):
             dict(step="all") 
         ])
     ))
-    fig.update_layout(title_text="Temperature in °C", title_font_size=20, title_x=0.5)
+    fig.update_layout(title_text="Temperature in °C", title_font_size=16, title_x=0.5)
     fig.update_yaxes(nticks=8)
     fig.update_xaxes(tickangle=0)
     fig.update_layout(
@@ -173,7 +173,7 @@ def display_time_series_humid(ticker):
     
     fig = px.line(df, x="date", y="value", color="type",
                   labels=dict(date="Time", value="Humidity (%)", type="Sensor"))
-    fig.update_layout(title_text="Humidity in %", title_font_size=20, title_x=0.5, yaxis_range=[30,100])
+    fig.update_layout(title_text="Humidity in %", title_font_size=16, title_x=0.5, yaxis_range=[30,100])
     fig.update_yaxes(nticks=8)
     fig.update_xaxes(tickangle=0)
     fig.update_xaxes(rangeslider_visible=True, 
@@ -233,7 +233,7 @@ def display_time_series_vpd(ticker):
     
     fig = px.line(df, x="date", y="value", color="type",
                   labels=dict(date="Time", value="VPD", type="Sensor"))
-    fig.update_layout(title_text="Vapor Pressure Deficit", title_font_size=20, title_x=0.5)
+    fig.update_layout(title_text="Vapor Pressure Deficit in kPa", title_font_size=16, title_x=0.5)
     fig.update_yaxes(nticks=8)
     fig.update_xaxes(rangeslider_visible=True, 
                      rangeselector=dict(
