@@ -132,7 +132,7 @@ def display_time_series_temp(ticker):
                 thickness=0.05,  # Hier wird die Dicke des Rangesliders in vertikaler Richtung festgelegt
             )
         ),
-        legend=dict(orientation="h", yanchor="bottom", y=1, xanchor="right", x=1)
+        legend=dict(orientation="h", yanchor="bottom", y=1, xanchor="center", x=0.5) # Legende zentral ausrichten
     )
     fig.update_layout(
         xaxis_title="Time",
@@ -198,7 +198,7 @@ def display_time_series_humid(ticker):
                 thickness=0.05,  # Hier wird die Dicke des Rangesliders in vertikaler Richtung festgelegt
             )
         ),
-        legend=dict(orientation="h", yanchor="bottom", y=1, xanchor="right", x=1)
+        legend=dict(orientation="h", yanchor="bottom", y=1, xanchor="center", x=0.5) # Legende zentral ausrichten
     )
     fig.update_layout(
         xaxis_title="Time",
@@ -264,7 +264,7 @@ def display_time_series_vpd(ticker):
                 thickness=0.05,  # Hier wird die Dicke des Rangesliders in vertikaler Richtung festgelegt
             )
         ),
-        legend=dict(orientation="h", yanchor="bottom", y=1.0, xanchor="right", x=1)
+        legend=dict(orientation="h", yanchor="bottom", y=1.0, xanchor="center", x=0.5) # Legende zentral ausrichten
     )
     fig.update_layout(
         xaxis_title="Time",
