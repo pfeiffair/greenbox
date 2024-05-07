@@ -124,7 +124,43 @@ def display_time_series_temp(ticker):
         ])
     ))
     fig.update_layout(title_text="Temperature in °C", title_font_size=20, title_x=0.5)
+    fig.update_yaxes(nticks=8)
+    fig.update_xaxes(tickangle=0)
+    fig.update_layout(
+        xaxis=dict(
+            rangeslider=dict(
+                thickness=0.05,  # Hier wird die Dicke des Rangesliders in vertikaler Richtung festgelegt
+            )
+        ),
+        legend=dict(orientation="h", yanchor="bottom", y=1, xanchor="right", x=1)
+    )
+    fig.update_layout(
+        xaxis_title="Time",
+        yaxis_title="Temperature (°C)",
+        legend_title="Sensor"
+    )
     fig.update_layout(uirevision="fix")
+    
+    # Neu: Buttons unterhalb der Grafik
+    fig.update_layout(
+        xaxis=dict(
+            rangeselector=dict(
+                buttons=list([
+                    dict(count=10, label="10 mim", step="minute", stepmode="backward"),
+                    dict(count=2, label="2 h", step="hour", stepmode="backward"),
+                    dict(count=12, label="12 h", step="hour", stepmode="todate"),
+                    dict(count=2, label="2 days", step="day", stepmode="backward"),
+                    dict(step="all") 
+                ]),
+                x=0.1,
+                y=-0.2, # Positionierung der Buttons unterhalb der Grafik
+                xanchor='left',
+                yanchor='bottom',
+                bgcolor='rgba(0,0,0,0)'
+            ),
+            showticklabels=False, # Die ursprünglichen Buttons über der Grafik ausblenden
+        )
+    )
     return fig
 
 # Callback to update the Humidity Chart
@@ -139,6 +175,7 @@ def display_time_series_humid(ticker):
                   labels=dict(date="Time", value="Humidity (%)", type="Sensor"))
     fig.update_layout(title_text="Humidity in %", title_font_size=20, title_x=0.5, yaxis_range=[30,100])
     fig.update_yaxes(nticks=8)
+    fig.update_xaxes(tickangle=0)
     fig.update_xaxes(rangeslider_visible=True, 
                      rangeselector=dict(
                          buttons=list([
@@ -149,7 +186,41 @@ def display_time_series_humid(ticker):
                              dict(step="all") 
                          ])
                      ))
+    fig.update_layout(
+        xaxis=dict(
+            rangeslider=dict(
+                thickness=0.05,  # Hier wird die Dicke des Rangesliders in vertikaler Richtung festgelegt
+            )
+        ),
+        legend=dict(orientation="h", yanchor="bottom", y=1, xanchor="right", x=1)
+    )
+    fig.update_layout(
+        xaxis_title="Time",
+        yaxis_title="Humidity (%)",
+        legend_title="Sensor"
+    )
     fig['layout']['uirevision'] = 'some-constant'
+    
+    # Neu: Buttons unterhalb der Grafik
+    fig.update_layout(
+        xaxis=dict(
+            rangeselector=dict(
+                buttons=list([
+                    dict(count=10, label="10 mim", step="minute", stepmode="todate"),
+                    dict(count=2, label="2 h", step="hour", stepmode="todate"),
+                    dict(count=12, label="12 h", step="hour", stepmode="todate"),
+                    dict(count=2, label="2 days", step="day", stepmode="todate"),
+                    dict(step="all") 
+                ]),
+                x=0.1,
+                y=-0.2, # Positionierung der Buttons unterhalb der Grafik
+                xanchor='left',
+                yanchor='bottom',
+                bgcolor='rgba(0,0,0,0)'
+            ),
+            showticklabels=False, # Die ursprünglichen Buttons über der Grafik ausblenden
+        )
+    )
     return fig
 
 # Callback to update the Vapor Pressure Deficit Chart
@@ -174,8 +245,44 @@ def display_time_series_vpd(ticker):
                              dict(step="all") 
                          ])
                      ))
+    fig.update_layout(
+        xaxis=dict(
+            rangeslider=dict(
+                thickness=0.05,  # Hier wird die Dicke des Rangesliders in vertikaler Richtung festgelegt
+            )
+        ),
+        legend=dict(orientation="h", yanchor="bottom", y=1.0, xanchor="right", x=1)
+    )
+    fig.update_layout(
+        xaxis_title="Time",
+        yaxis_title="VPD",
+        legend_title="Sensor"
+    )
     fig['layout']['uirevision'] = 'some-constant'
+    
+    # Neu: Buttons unterhalb der Grafik
+    fig.update_layout(
+        xaxis=dict(
+            rangeselector=dict(
+                buttons=list([
+                    dict(count=10, label="10 mim", step="minute", stepmode="backward"),
+                    dict(count=2, label="2 h", step="hour", stepmode="backward"),
+                    dict(count=12, label="12 h", step="hour", stepmode="todate"),
+                    dict(count=2, label="2 days", step="day", stepmode="backward"),
+                    dict(step="all") 
+                ]),
+                x=0.1,
+                y=-0.2, # Positionierung der Buttons unterhalb der Grafik
+                xanchor='left',
+                yanchor='bottom',
+                bgcolor='rgba(0,0,0,0)'
+            ),
+            showticklabels=False, # Die ursprünglichen Buttons über der Grafik ausblenden
+        )
+    )
     return fig
+
+
 
 # Callback to update the current sensor values
 @app.callback(
