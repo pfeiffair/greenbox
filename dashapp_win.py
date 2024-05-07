@@ -124,7 +124,7 @@ def display_time_series_temp(ticker):
         ])
     ))
     fig.update_layout(title_text="Temperature in °C", title_font_size=16, title_x=0.5)
-    fig.update_yaxes(nticks=8)
+    fig.update_yaxes(title=None)
     fig.update_xaxes(tickangle=0)
     fig.update_layout(
         xaxis=dict(
@@ -136,7 +136,6 @@ def display_time_series_temp(ticker):
     )
     fig.update_layout(
         xaxis_title="Time",
-        yaxis_title="Temperature (°C)",
         legend_title="Sensor"
     )
     fig.update_layout(uirevision="fix")
@@ -174,7 +173,7 @@ def display_time_series_humid(ticker):
     fig = px.line(df, x="date", y="value", color="type",
                   labels=dict(date="Time", value="Humidity (%)", type="Sensor"))
     fig.update_layout(title_text="Humidity in %", title_font_size=16, title_x=0.5, yaxis_range=[30,100])
-    fig.update_yaxes(nticks=8)
+    fig.update_yaxes(title=None)
     fig.update_xaxes(tickangle=0)
     fig.update_xaxes(rangeslider_visible=True, 
                      rangeselector=dict(
@@ -196,7 +195,6 @@ def display_time_series_humid(ticker):
     )
     fig.update_layout(
         xaxis_title="Time",
-        yaxis_title="Humidity (%)",
         legend_title="Sensor"
     )
     fig['layout']['uirevision'] = 'some-constant'
@@ -234,7 +232,8 @@ def display_time_series_vpd(ticker):
     fig = px.line(df, x="date", y="value", color="type",
                   labels=dict(date="Time", value="VPD", type="Sensor"))
     fig.update_layout(title_text="Vapor Pressure Deficit in kPa", title_font_size=16, title_x=0.5)
-    fig.update_yaxes(nticks=8)
+    fig.update_yaxes(title=None)
+    fig.update_xaxes(tickangle=0)
     fig.update_xaxes(rangeslider_visible=True, 
                      rangeselector=dict(
                          buttons=list([
@@ -255,7 +254,6 @@ def display_time_series_vpd(ticker):
     )
     fig.update_layout(
         xaxis_title="Time",
-        yaxis_title="VPD",
         legend_title="Sensor"
     )
     fig['layout']['uirevision'] = 'some-constant'
@@ -281,7 +279,6 @@ def display_time_series_vpd(ticker):
         )
     )
     return fig
-
 
 
 # Callback to update the current sensor values
