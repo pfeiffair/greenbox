@@ -140,6 +140,9 @@ def display_time_series_temp(ticker):
     )
     fig.update_layout(uirevision="fix")
     
+    # Neu: Breite des Div-Elements anpassen
+    fig.update_layout(width=500)
+    
     # Neu: Buttons unterhalb der Grafik
     fig.update_layout(
         xaxis=dict(
@@ -160,6 +163,10 @@ def display_time_series_temp(ticker):
             showticklabels=False, # Die ursprünglichen Buttons über der Grafik ausblenden
         )
     )
+    
+    # Neu: Graph etwas nach links verschieben
+    fig.update_layout(margin=dict(l=50))
+    
     return fig
 
 # Callback to update the Humidity Chart
@@ -199,6 +206,9 @@ def display_time_series_humid(ticker):
     )
     fig['layout']['uirevision'] = 'some-constant'
     
+    # Neu: Breite des Div-Elements anpassen
+    fig.update_layout(width=500)
+    
     # Neu: Buttons unterhalb der Grafik
     fig.update_layout(
         xaxis=dict(
@@ -219,6 +229,10 @@ def display_time_series_humid(ticker):
             showticklabels=False, # Die ursprünglichen Buttons über der Grafik ausblenden
         )
     )
+    
+    # Neu: Graph etwas nach links verschieben
+    fig.update_layout(margin=dict(l=50))
+    
     return fig
 
 # Callback to update the Vapor Pressure Deficit Chart
@@ -258,6 +272,9 @@ def display_time_series_vpd(ticker):
     )
     fig['layout']['uirevision'] = 'some-constant'
     
+    # Neu: Breite des Div-Elements anpassen
+    fig.update_layout(width=500)
+    
     # Neu: Buttons unterhalb der Grafik
     fig.update_layout(
         xaxis=dict(
@@ -278,7 +295,12 @@ def display_time_series_vpd(ticker):
             showticklabels=False, # Die ursprünglichen Buttons über der Grafik ausblenden
         )
     )
+    
+    # Neu: Graph etwas nach links verschieben
+    fig.update_layout(margin=dict(l=50))
+    
     return fig
+
 
 
 # Callback to update the current sensor values
